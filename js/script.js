@@ -1,19 +1,157 @@
 /**
  * ==========================================================================
  * DHARA PATEL — Digital Marketer & Social Media Manager
- * Client-side JavaScript (Lightweight, Accessible, Zero Dependencies)
+ * Client-Side JavaScript & Central Client Data Structure
  * ==========================================================================
  */
 
+/**
+ * ==========================================================================
+ * 1. CENTRAL CLIENT DATA STRUCTURE
+ * All client cards are dynamically rendered from this single source of truth.
+ * To add, edit, or remove a client, simply update this array.
+ * ==========================================================================
+ */
+const clients = [
+  {
+    clientName: "Sparkle & Stitch Gallery",
+    businessCategory: "Fashion / Clothing / Designer Wear",
+    city: "Vadodara",
+    state: "Gujarat",
+    country: "India",
+    logo: "assets/sparkle_and_stitch_logo.jpg",
+    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    services: [
+      "Social Media Creatives",
+      "Promotional Posts",
+      "Festival Content",
+      "Brand Communication"
+    ]
+  },
+  {
+    clientName: "SV Baker's by Heta",
+    businessCategory: "Home Bakery",
+    city: "Surat",
+    state: "Gujarat",
+    country: "India",
+    logo: "assets/svbakers_logo.jpg",
+    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    services: [
+      "Social Media Content",
+      "Reels",
+      "SEO Captions",
+      "Promotional Creatives",
+      "Local Content"
+    ]
+  },
+  {
+    clientName: "Chaina Delights",
+    businessCategory: "Chinese & Indo-Chinese Restaurant",
+    city: "Pal, Surat",
+    state: "Gujarat",
+    country: "India",
+    logo: "assets/chaina_delights_logo.jpg",
+    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    services: [
+      "Food Reels",
+      "Promotional Creatives",
+      "SEO Captions",
+      "Local Keywords",
+      "Festival Campaigns"
+    ]
+  },
+  {
+    clientName: "SV Food",
+    businessCategory: "Food Business",
+    city: "Gujarat",
+    state: "Gujarat",
+    country: "India",
+    logo: "assets/svfoods_logo.jpg",
+    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    services: [
+      "Food Presentation Content",
+      "Promotional Content",
+      "Customer Messaging"
+    ]
+  }
+];
+
+// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
+  renderClientCards();
   initMobileMenu();
   initWhatsAppEnquiryForm();
-  initCaseStudyModal();
   initScrollSpy();
 });
 
 /**
- * 1. Mobile Menu Drawer Navigation
+ * 2. Reusable Client Card Generator
+ * Dynamically builds and injects client cards from the central clients array.
+ */
+function renderClientCards() {
+  const container = document.getElementById('client-work-grid');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  clients.forEach((client) => {
+    const card = document.createElement('article');
+    card.className = 'client-card';
+
+    const tagsHtml = client.services
+      .map((svc) => `<span class="client-service-tag">${escapeHtml(svc)}</span>`)
+      .join('');
+
+    card.innerHTML = `
+      <div class="client-card-header">
+        <div class="client-logo-box">
+          <img 
+            src="${escapeHtml(client.logo)}" 
+            alt="${escapeHtml(client.clientName)} Logo" 
+            class="client-logo-img" 
+            loading="lazy" 
+          />
+        </div>
+        <div class="client-meta-info">
+          <h3 class="client-name">${escapeHtml(client.clientName)}</h3>
+          <span class="client-category">${escapeHtml(client.businessCategory)}</span>
+          <span class="client-location">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:-2px;margin-right:2px;">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            ${escapeHtml(client.city)}, ${escapeHtml(client.state)}, ${escapeHtml(client.country)}
+          </span>
+        </div>
+      </div>
+
+      <div class="client-services-wrap">
+        <div class="client-services-label">Services Provided</div>
+        <div class="client-services-tags">
+          ${tagsHtml}
+        </div>
+      </div>
+
+      <div class="client-card-footer">
+        <a 
+          href="${escapeHtml(client.instagramUrl)}" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="client-instagram-link"
+          aria-label="View Instagram for ${escapeHtml(client.clientName)}"
+        >
+          <span>View Instagram</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/**
+ * 3. Mobile Navigation Drawer
  */
 function initMobileMenu() {
   const hamburgerBtn = document.getElementById('hamburger-toggle');
@@ -37,14 +175,12 @@ function initMobileMenu() {
     toggleMenu(!currentlyExpanded);
   });
 
-  // Close when clicking any nav link
   mobileNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       toggleMenu(false);
     });
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
       toggleMenu(false);
@@ -53,22 +189,7 @@ function initMobileMenu() {
 }
 
 /**
- * 2. WhatsApp Form Integration
- * On submit, constructs a pre-filled WhatsApp message in exact requested format:
- *
- * Hi Dhara, I'm interested in your digital marketing/social media services.
- *
- * Name:
- * [entered name]
- *
- * Business:
- * [entered business]
- *
- * Contact:
- * [entered contact]
- *
- * What I need help with:
- * [entered message]
+ * 4. WhatsApp Form Submission Handler
  */
 function initWhatsAppEnquiryForm() {
   const form = document.getElementById('enquiry-form');
@@ -109,152 +230,7 @@ function initWhatsAppEnquiryForm() {
 }
 
 /**
- * 3. Case Study Presentation Modal
- * Authentic case studies for the 4 verified projects only
- */
-const CASE_STUDIES = {
-  'sv-bakers': {
-    title: "SV Baker's by Heta",
-    category: "Home Bakery",
-    location: "Surat, Gujarat",
-    image: "assets/heta_desai_mockup.jpg",
-    goal: "Establish a distinct local digital identity for an artisanal home bakery, driving local awareness and customer orders across Surat.",
-    approach: "Took charge of social media content planning, product photography direction, high-appeal dessert reel concepts, and localized SEO captions.",
-    deliverables: [
-      "Social Media Content",
-      "Reels",
-      "SEO Captions",
-      "Promotional Creatives",
-      "Local Content"
-    ],
-    results: "Focus: consistent content, stronger brand presentation and improved local visibility."
-  },
-  'chaina-delights': {
-    title: "Chaina Delights",
-    category: "Chinese & Indo-Chinese Restaurant",
-    location: "Pal, Surat",
-    image: "assets/heta_desai_mockup.jpg",
-    goal: "Showcase food quality, sizzling dishes, and festival food specials to attract local walk-ins and direct inquiries from Surat food enthusiasts.",
-    approach: "Created appetizing reel hooks, clear promotional offer graphics, localized keywords, and festive campaign announcements.",
-    deliverables: [
-      "Food Reels",
-      "Promotional Creatives",
-      "SEO Captions",
-      "Local Keywords",
-      "Festival Campaigns",
-      "Offer Creatives"
-    ],
-    results: "Focus: consistent content, stronger brand presentation and improved local visibility."
-  },
-  'sparkle-stitch': {
-    title: "Sparkle & Stitch Gallery",
-    category: "Fashion & Creative Studio",
-    location: "Vadodara, Gujarat",
-    image: "assets/sparkle_stitch_mockup.jpg",
-    goal: "Highlight custom designer craftsmanship, intricate embroidery, and bespoke tailoring to build trust with high-intent fashion clientele.",
-    approach: "Designed clean, elegant aesthetic visuals and storytelling reels that emphasize fabric details, custom fits, and studio artistry.",
-    deliverables: [
-      "Social Media Creatives",
-      "Promotional Posts",
-      "Festival Content",
-      "Brand Communication"
-    ],
-    results: "Focus: consistent content, stronger brand presentation and improved local visibility."
-  },
-  'sv-food': {
-    title: "SV Food",
-    category: "Food Business",
-    location: "Gujarat, India",
-    image: "assets/sv_foods_mockup.jpg",
-    goal: "Build customer appetite and brand consistency through clear food presentation, special deals, and trustworthy messaging.",
-    approach: "Curated appealing menu highlights, customer-first messaging, and regular social updates to keep the brand top-of-mind.",
-    deliverables: [
-      "Food Presentation Content",
-      "Promotional Graphics",
-      "Customer-Focused Messaging"
-    ],
-    results: "Focus: consistent content, stronger brand presentation and improved local visibility."
-  }
-};
-
-function initCaseStudyModal() {
-  const modalOverlay = document.getElementById('case-study-modal');
-  const closeBtn = document.getElementById('modal-close');
-  if (!modalOverlay || !closeBtn) return;
-
-  const modalTitle = document.getElementById('modal-project-title');
-  const modalCategory = document.getElementById('modal-project-category');
-  const modalLocation = document.getElementById('modal-project-location');
-  const modalImage = document.getElementById('modal-project-img');
-  const modalGoal = document.getElementById('modal-project-goal');
-  const modalApproach = document.getElementById('modal-project-approach');
-  const modalDeliverables = document.getElementById('modal-project-deliverables');
-  const modalResults = document.getElementById('modal-project-results');
-
-  function openCaseStudy(id) {
-    const data = CASE_STUDIES[id];
-    if (!data) return;
-
-    if (modalTitle) modalTitle.textContent = data.title;
-    if (modalCategory) modalCategory.textContent = data.category;
-    if (modalLocation) modalLocation.textContent = data.location;
-    if (modalGoal) modalGoal.textContent = data.goal;
-    if (modalApproach) modalApproach.textContent = data.approach;
-    if (modalResults) modalResults.textContent = data.results;
-
-    if (modalImage) {
-      modalImage.src = data.image;
-      modalImage.alt = `${data.title} Work Showcase`;
-    }
-
-    if (modalDeliverables) {
-      modalDeliverables.innerHTML = '';
-      data.deliverables.forEach((item) => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        li.style.fontSize = '0.925rem';
-        li.style.color = 'var(--text-secondary)';
-        li.style.marginBottom = '0.4rem';
-        modalDeliverables.appendChild(li);
-      });
-    }
-
-    modalOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
-  }
-
-  function closeModal() {
-    modalOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  // Trigger buttons
-  document.querySelectorAll('[data-case-study]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = btn.getAttribute('data-case-study');
-      openCaseStudy(id);
-    });
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-      closeModal();
-    }
-  });
-}
-
-/**
- * 4. Active Navigation State Tracking (ScrollSpy)
+ * 5. ScrollSpy Navigation Highlighting
  */
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
@@ -280,4 +256,17 @@ function initScrollSpy() {
   });
 
   sections.forEach((sec) => observer.observe(sec));
+}
+
+/**
+ * Helper: Simple HTML Escaping
+ */
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
