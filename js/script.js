@@ -20,7 +20,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/sparkle_and_stitch_logo.jpg",
-    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    instagramUrl: "https://www.instagram.com/sparkleandstitchgallery/",
     services: [
       "Social Media Creatives",
       "Promotional Posts",
@@ -35,7 +35,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/svbakers_logo.jpg",
-    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    instagramUrl: "https://www.instagram.com/svbakersbyheta/",
     services: [
       "Social Media Content",
       "Reels",
@@ -51,7 +51,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/chaina_delights_logo.jpg",
-    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    instagramUrl: "https://www.instagram.com/chainadelights.surat/",
     services: [
       "Food Reels",
       "Promotional Creatives",
@@ -67,7 +67,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/svfoods_logo.jpg",
-    instagramUrl: "https://www.instagram.com/d_h_aa_r_a",
+    instagramUrl: "https://www.instagram.com/svfoods/",
     services: [
       "Food Presentation Content",
       "Promotional Content",
@@ -138,9 +138,9 @@ function renderClientCards() {
           target="_blank" 
           rel="noopener noreferrer" 
           class="client-instagram-link"
-          aria-label="View Instagram for ${escapeHtml(client.clientName)}"
+          aria-label="View Client Details for ${escapeHtml(client.clientName)}"
         >
-          <span>View Instagram</span>
+          <span>View Client Details</span>
           <span aria-hidden="true">→</span>
         </a>
       </div>
