@@ -20,7 +20,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/sparkle_and_stitch_logo.jpg",
-    instagramUrl: "https://www.instagram.com/sparkleandstitchgallery/",
+    instagramUrl: "https://www.instagram.com/sparkle_and_stitch_gallery?stkn=dnVudmg5c3hsZjBt",
     services: [
       "Social Media Creatives",
       "Promotional Posts",
@@ -35,7 +35,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/svbakers_logo.jpg",
-    instagramUrl: "https://www.instagram.com/svbakersbyheta/",
+    instagramUrl: "https://www.instagram.com/svbakers.byheta?stkn=Y3ptb3hnbTRyeDE3",
     services: [
       "Social Media Content",
       "Reels",
@@ -51,7 +51,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/chaina_delights_logo.jpg",
-    instagramUrl: "https://www.instagram.com/chainadelights.surat/",
+    instagramUrl: "https://www.instagram.com/chaina_delights?stkn=ZTRmb2IzNWdkcTQ2",
     services: [
       "Food Reels",
       "Promotional Creatives",
@@ -67,7 +67,7 @@ const clients = [
     state: "Gujarat",
     country: "India",
     logo: "assets/svfoods_logo.jpg",
-    instagramUrl: "https://www.instagram.com/svfoods/",
+    instagramUrl: "https://www.instagram.com/sv_food91?stkn=ZW12ZXd0dG1ocXM4",
     services: [
       "Food Presentation Content",
       "Promotional Content",
