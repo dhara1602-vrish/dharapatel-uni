@@ -73,6 +73,23 @@ const clients = [
       "Promotional Content",
       "Customer Messaging"
     ]
+  },
+  {
+    clientName: "Metallix Innovation",
+    businessCategory: "Aluminium and Glass specialists",
+    city: "Mehsana",
+    state: "Gujarat",
+    country: "India",
+    logo: "assets/metallix_logo.jpeg",
+    instagramUrl: "https://www.instagram.com/metallixinnovations?xtok=MWNvbXhqNTZqM3hucA==",
+    description: "Premier manufacturer & contractor for Aluminium Sliding Windows, Domal Sections, Structural Glazing, Glass Work, and ACP Elevation Cladding in Mehsana, Gujarat.",
+    services: [
+      "Aluminium Windows",
+      "Structural Glazing",
+      "ACP Cladding",
+      "Glass Work",
+      "Curtain Wall Systems"
+    ]
   }
 ];
 
